@@ -1,1 +1,3 @@
 vis_res_imgs/*
+*__pycache__*
+*.pyc
