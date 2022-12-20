@@ -169,6 +169,25 @@ class CrowdCountingInference(nn.Module):
         img_array = cv2.applyColorMap(img_array, cv2.COLORMAP_JET)
         return img_array
 
+    def alpha_img(self, img_src_array, img_heatmap_array, alpha=0.3):
+        """get an alpha img by fusion source img and heatmap
+
+        Args:
+            img_src_array (np.array): input source data
+            img_heatmap_array(np.array): heat map data
+            alpha: hyper-parameter for fusion
+
+        Returns:
+            cv2 img
+        """
+
+
+        h,w = img_src_array.shape[:-1]
+        img_heatmap_reshape_array = cv2.resize(img_heatmap_array, (w,h))
+        output_array = cv2.addWeighted(img_heatmap_reshape_array, alpha, img_src_array, (1-alpha), 0)
+
+        return output_array
+
     def __call__(self, img, *args, **kwargs):
         input = self.preprocess(img)
         counts, img_data = self.perform_inference(input)

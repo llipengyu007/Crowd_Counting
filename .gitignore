@@ -2,3 +2,5 @@ vis_res_imgs/*
 *__pycache__*
 *.pyc
 *.idea*
+alpha_res_imgs/*
+heatmap_res_imgs/*
